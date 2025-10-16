@@ -36,7 +36,7 @@
     <h2>Bienvenido a Truco Argento</h2>
 
     <% if (session.getAttribute("usuarioNombre") != null) { %>
-        <p>Hola, <strong><%= session.getAttribute("usuarioNombre") %></strong> 👋</p>
+        <p>Hola, <strong><%= session.getAttribute("usuarioNombre") %></strong> </p>
         <a class="btn" href="pages/juego.jsp">¡Continuar jugando!</a>
     <% } else { %>
         <p>¡Preservá la tradición jugando al truco argentino!</p>

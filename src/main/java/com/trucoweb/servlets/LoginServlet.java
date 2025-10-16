@@ -1,7 +1,7 @@
 // language: java
 package com.trucoweb.servlets;
 
-import com.trucoweb.db.Conexion;
+import com.trucoweb.db.AdmConnexion;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet implements AdmConnexion {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         String sql = "SELECT password, nombre FROM usuarios WHERE email = ? OR nombre = ?";
-        try (Connection conn = Conexion.getConnection();
+        try (Connection conn = obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, login);
