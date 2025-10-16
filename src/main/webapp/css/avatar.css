@@ -1,0 +1,12 @@
+.usuario-avatar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.usuario-avatar .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #d4a373; /* Color tipo madera/dorado */
+}

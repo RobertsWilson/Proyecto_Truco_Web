@@ -1,0 +1,33 @@
+/* Header principal */
+header {
+  background-color: rgba(85, 42, 20, 0.85);
+  color: #fffbe7;
+  padding: 1em;
+  text-align: center;
+  border-bottom: 4px solid #d4a373;
+}
+
+/* Navegación */
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  padding: 0.5em;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+nav a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ffd700;
+}
