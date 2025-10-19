@@ -1,0 +1,30 @@
+.ranking-table {
+    width: 80%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.ranking-table th, .ranking-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.ranking-table th {
+    background-color: #333;
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+.ranking-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ranking-table td img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 10px;
+}

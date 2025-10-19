@@ -32,6 +32,32 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>RankingServlet</servlet-name>
+    <servlet-class>com.trucoweb.servlets.RankingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RankingServlet</servlet-name>
+    <url-pattern>/ranking</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PerfilServlet</servlet-name>
+    <servlet-class>com.trucoweb.servlets.PerfilServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PerfilServlet</servlet-name>
+    <url-pattern>/PerfilServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>EliminarUsuarioServlet</servlet-name>
+    <servlet-class>com.trucoweb.servlets.EliminarUsuarioServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EliminarUsuarioServlet</servlet-name>
+    <url-pattern>/EliminarUsuarioServlet</url-pattern>
+  </servlet-mapping>
 
 
 </web-app>

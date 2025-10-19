@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet implements AdmConnexion {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        String sql = "SELECT password, nombre FROM usuarios WHERE email = ? OR nombre = ?";
+        String sql = "SELECT id_usuario, password, nombre, avatar FROM usuarios WHERE email = ? OR nombre = ?";
         try (Connection conn = obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -31,10 +31,15 @@ public class LoginServlet extends HttpServlet implements AdmConnexion {
                 if (rs.next()) {
                     String storedHash = rs.getString("password");
                     if (BCrypt.checkpw(password, storedHash)) {
+                        int idObtenido = rs.getInt("id_usuario"); // Obtener el ID
                         String nombreObtenido = rs.getString("nombre");
+                        String avatarObtenido = rs.getString("avatar"); // Obtener el avatar
+
                         HttpSession session = request.getSession();
-                        session.setAttribute("usuarioAvatar", "img/avatar.default.jpg");
+                        session.setAttribute("id_usuario", idObtenido); // <-- ¡VITAL!
                         session.setAttribute("usuarioNombre", nombreObtenido);
+                        session.setAttribute("usuarioAvatar", avatarObtenido); // <-- NUEVO
+
                         response.sendRedirect(request.getContextPath() + "/index.jsp");
                         return;
                     }

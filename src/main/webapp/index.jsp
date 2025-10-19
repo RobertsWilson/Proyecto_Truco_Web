@@ -15,6 +15,8 @@
             <li><a href="index.jsp">Inicio</a></li>
             <li><a href="pages/juego.jsp">Jugar</a></li>
             <li><a href="pages/info.jsp">Información</a></li>
+            <a href="<%=request.getContextPath()%>/ranking">Ranking</a>
+            <li><a href="<%=request.getContextPath()%>/PerfilServlet">Mi Perfil</a></li>
 
             <%-- Si NO está logueado, mostrar Login y Registro --%>
             <% if (session.getAttribute("usuarioNombre") == null) { %>
