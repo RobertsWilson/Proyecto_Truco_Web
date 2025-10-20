@@ -5,10 +5,7 @@
     <meta charset="UTF-8" />
     <title>Información sobre el Truco</title>
     <link rel="stylesheet" href="../css/main.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet"/>
   </head>
   <body>
     <header>
@@ -18,6 +15,7 @@
           <li><a href="../index.jsp">Inicio</a></li>
           <li><a href="juego.jsp">Jugar</a></li>
           <li><a href="info.jsp">Información</a></li>
+          <li><a href="<%=request.getContextPath()%>/PerfilServlet">Mi Perfil</a></li>
         </ul>
       </nav>
     </header>

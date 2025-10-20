@@ -16,6 +16,7 @@
           <li><a href="${pageContext.request.contextPath}/index.jsp">Inicio</a></li>
           <li><a href="${pageContext.request.contextPath}/pages/juego.jsp">Jugar</a></li>
           <li><a href="${pageContext.request.contextPath}/pages/info.jsp">Información</a></li>
+          <li><a href="<%=request.getContextPath()%>/PerfilServlet">Mi Perfil</a></li>
           </ul>
       </nav>
     </header>

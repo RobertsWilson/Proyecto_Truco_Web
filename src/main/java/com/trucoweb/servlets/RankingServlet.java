@@ -1,4 +1,3 @@
-// language: java
 package com.trucoweb.servlets;
 
 import com.trucoweb.dao.UsuarioDAO;
@@ -22,7 +21,7 @@ public class RankingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 5. Usar el DAO para obtener el ranking
+        // Usar el DAO para obtener el ranking
         // El DAO se encarga del try-catch y de devolver una lista (vacía en caso de error)
         List<Usuario> ranking = usuarioDAO.obtenerRanking();
 

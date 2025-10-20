@@ -1,4 +1,3 @@
-// language: java
 package com.trucoweb.servlets;
 
 import com.trucoweb.dao.UsuarioDAO; // <-- 1. Importar
