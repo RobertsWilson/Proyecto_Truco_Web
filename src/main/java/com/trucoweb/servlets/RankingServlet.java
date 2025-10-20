@@ -1,42 +1,30 @@
 // language: java
 package com.trucoweb.servlets;
 
-import com.trucoweb.db.AdmConnexion;
+import com.trucoweb.dao.UsuarioDAO;
 import com.trucoweb.model.Usuario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class RankingServlet extends HttpServlet implements AdmConnexion {
+public class RankingServlet extends HttpServlet {
+
+    private UsuarioDAO usuarioDAO;
+
+    // Instancia del DAO
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.usuarioDAO = new UsuarioDAO();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Usuario> ranking = new ArrayList<>();
-        String sql = "SELECT nombre, victorias, avatar FROM usuarios ORDER BY victorias DESC";
 
-        try (Connection conn = obtenerConexion();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setNombre(rs.getString("nombre"));
-                usuario.setVictorias(rs.getInt("victorias"));
-                usuario.setAvatar(rs.getString("avatar"));
-                ranking.add(usuario);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.getWriter().println("Error al cargar el ranking.");
-            return;
-        }
+        // 5. Usar el DAO para obtener el ranking
+        // El DAO se encarga del try-catch y de devolver una lista (vacía en caso de error)
+        List<Usuario> ranking = usuarioDAO.obtenerRanking();
 
         // Enviar la lista de ranking al JSP
         request.setAttribute("ranking", ranking);

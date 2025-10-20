@@ -5,32 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mi Perfil - Truco Argento</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <style>
-        .form-container img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 1rem;
-        }
-        .mensaje {
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: white;
-        }
-        .exito { background-color: green; }
-        .error { background-color: red; }
-        .delete-btn {
-            background-color: #990000;
-            border: none;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        .delete-btn:hover { background-color: #cc0000; }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
 

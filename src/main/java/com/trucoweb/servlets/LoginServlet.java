@@ -1,18 +1,23 @@
 // language: java
 package com.trucoweb.servlets;
 
-import com.trucoweb.db.AdmConnexion;
+import com.trucoweb.dao.UsuarioDAO;
+import com.trucoweb.model.Usuario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class LoginServlet extends HttpServlet implements AdmConnexion {
+public class LoginServlet extends HttpServlet {
+
+    private UsuarioDAO usuarioDAO;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.usuarioDAO = new UsuarioDAO(); //Instanciar el DAO
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -20,36 +25,29 @@ public class LoginServlet extends HttpServlet implements AdmConnexion {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        String sql = "SELECT id_usuario, password, nombre, avatar FROM usuarios WHERE email = ? OR nombre = ?";
-        try (Connection conn = obtenerConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            //Usar el DAO para buscar al usuario
+            Usuario usuario = usuarioDAO.buscarPorLogin(login);
 
-            ps.setString(1, login);
-            ps.setString(2, login);
+            //Verificar la contraseña usando BCrypt
+            if (usuario != null && BCrypt.checkpw(password, usuario.getPassword())) {
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    String storedHash = rs.getString("password");
-                    if (BCrypt.checkpw(password, storedHash)) {
-                        int idObtenido = rs.getInt("id_usuario"); // Obtener el ID
-                        String nombreObtenido = rs.getString("nombre");
-                        String avatarObtenido = rs.getString("avatar"); // Obtener el avatar
+                //Crear la sesión
+                HttpSession session = request.getSession();
+                session.setAttribute("id_usuario", usuario.getId_usuario());
+                session.setAttribute("usuarioNombre", usuario.getNombre());
+                session.setAttribute("usuarioAvatar", usuario.getAvatar());
 
-                        HttpSession session = request.getSession();
-                        session.setAttribute("id_usuario", idObtenido); // <-- ¡VITAL!
-                        session.setAttribute("usuarioNombre", nombreObtenido);
-                        session.setAttribute("usuarioAvatar", avatarObtenido); // <-- NUEVO
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
 
-                        response.sendRedirect(request.getContextPath() + "/index.jsp");
-                        return;
-                    }
-                }
+            } else {
+                // Usuario o contraseña incorrecta
                 response.sendRedirect(request.getContextPath() + "/pages/login.jsp?error=1");
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("Error en el login");
+            response.sendRedirect(request.getContextPath() + "/pages/login.jsp?error=2"); // Error genérico
         }
     }
 }

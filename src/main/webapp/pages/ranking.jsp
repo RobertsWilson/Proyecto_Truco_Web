@@ -13,9 +13,9 @@
       <h1>Truco Argento</h1>
       <nav>
         <ul>
-          <li><a href="../index.jsp">Inicio</a></li>
-          <li><a href="juego.jsp">Jugar</a></li>
-          <li><a href="info.jsp">Información</a></li>
+          <li><a href="${pageContext.request.contextPath}/index.jsp">Inicio</a></li>
+          <li><a href="${pageContext.request.contextPath}/pages/juego.jsp">Jugar</a></li>
+          <li><a href="${pageContext.request.contextPath}/pages/info.jsp">Información</a></li>
           </ul>
       </nav>
     </header>
