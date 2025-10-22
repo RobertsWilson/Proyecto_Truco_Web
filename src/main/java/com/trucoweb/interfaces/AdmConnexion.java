@@ -1,5 +1,5 @@
 // language: java
-package com.trucoweb.db;
+package com.trucoweb.interfaces;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

@@ -12,7 +12,7 @@ public class EliminarUsuarioServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.usuarioDAO = new UsuarioDAO(); //Instanciar
+        this.usuarioDAO = new UsuarioDAO();
     }
 
     @Override
@@ -26,15 +26,17 @@ public class EliminarUsuarioServlet extends HttpServlet {
 
         int idUsuario = (int) session.getAttribute("id_usuario");
 
-        //Usar el DAO para eliminar
-        boolean exito = usuarioDAO.eliminarUsuario(idUsuario);
+        try {
+            //Usar el método delete() de la interfaz DAO
+            usuarioDAO.delete(idUsuario); //
 
-        if (exito) {
-            // Si se borró, invalidar la sesión
+            //Si tiene éxito, invalidar la sesión y redirigir
             session.invalidate();
             response.sendRedirect(request.getContextPath() + "/pages/login.jsp?mensaje=cuenta_eliminada");
-        } else {
-            // Si falló, redirigir al perfil con un error
+
+        } catch (Exception e) {
+            //Si falla, redirigir al perfil con un error
+            e.printStackTrace();
             session.setAttribute("mensaje", "Error: No se pudo eliminar la cuenta.");
             response.sendRedirect(request.getContextPath() + "/PerfilServlet");
         }

@@ -16,7 +16,7 @@
           <li><a href="${pageContext.request.contextPath}/index.jsp">Inicio</a></li>
           <li><a href="${pageContext.request.contextPath}/pages/juego.jsp">Jugar</a></li>
           <li><a href="${pageContext.request.contextPath}/pages/info.jsp">Información</a></li>
-          <li><a href="<%=request.getContextPath()%>/PerfilServlet">Mi Perfil</a></li>
+          <li><a href="${pageContext.request.contextPath}/PerfilServlet">Mi Perfil</a></li>
           </ul>
       </nav>
     </header>
@@ -35,7 +35,7 @@
         <tbody>
             <c:forEach var="usuario" items="${ranking}">
                 <tr>
-                    <td><img src="<%=request.getContextPath()%>/${usuario.avatar}" alt="Avatar"></td>
+                    <td><img src="${pageContext.request.contextPath}/${usuario.avatar}" alt="Avatar"></td>
                     <td><c:out value="${usuario.nombre}" /></td>
                     <td><c:out value="${usuario.victorias}" /></td>
                 </tr>

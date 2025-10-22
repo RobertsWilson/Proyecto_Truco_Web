@@ -16,7 +16,7 @@
         <p style="color:red;">Usuario o contraseña incorrectos</p>
     <% } %>
 
-    <form action="<%=request.getContextPath()%>/login" method="post">
+    <form action="${pageContext.request.contextPath}/login" method="post">
         <label>Email o Nombre de usuario:</label>
         <input type="text" name="login" required>
 

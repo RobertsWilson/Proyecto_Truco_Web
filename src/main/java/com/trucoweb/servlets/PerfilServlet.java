@@ -1,6 +1,6 @@
 package com.trucoweb.servlets;
 
-import com.trucoweb.dao.UsuarioDAO; // <-- 1. Importar
+import com.trucoweb.dao.UsuarioDAO;
 import com.trucoweb.model.Usuario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -10,7 +10,6 @@ public class PerfilServlet extends HttpServlet {
 
     private UsuarioDAO usuarioDAO;
 
-    //Se instancia el DAO
     @Override
     public void init() throws ServletException {
         super.init();
@@ -28,21 +27,19 @@ public class PerfilServlet extends HttpServlet {
 
         int idUsuario = (int) session.getAttribute("id_usuario");
 
-        // Manejar mensajes
         if (session.getAttribute("mensaje") != null) {
             request.setAttribute("mensaje", session.getAttribute("mensaje"));
             session.removeAttribute("mensaje");
         }
 
-        //Usar el DAO para buscar al usuario
-        Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+        //Usar el método getById() de la interfaz DAO
+        Usuario usuario = usuarioDAO.getById(idUsuario); //
 
         if (usuario != null) {
             request.setAttribute("usuario", usuario);
             request.getRequestDispatcher("/pages/perfil.jsp").forward(request, response);
         } else {
-            // Error: el usuario de la sesión no se encontró en la BD
-            session.invalidate(); // Invalidamos la sesión por seguridad
+            session.invalidate();
             response.sendRedirect(request.getContextPath() + "/pages/login.jsp?error=perfil_no_encontrado");
         }
     }
@@ -57,27 +54,29 @@ public class PerfilServlet extends HttpServlet {
             return;
         }
 
+        //Preparar el objeto modelo con los datos del formulario
         int idUsuario = (int) session.getAttribute("id_usuario");
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
         String avatar = request.getParameter("avatar");
 
-        // Creamos un objeto Usuario para pasarlo al DAO
-        Usuario usuario = new Usuario();
+        Usuario usuario = new Usuario(); //
         usuario.setId_usuario(idUsuario);
         usuario.setNombre(nombre);
         usuario.setEmail(email);
         usuario.setAvatar(avatar);
 
-        //Usar el DAO para actualizar
-        boolean exito = usuarioDAO.actualizarPerfil(usuario);
+        try {
+            //Usar el método update() de la interfaz DAO
+            usuarioDAO.update(usuario); //
 
-        if (exito) {
-            // Actualizar los datos de la sesión
+            //Actualizar la sesión
             session.setAttribute("usuarioNombre", nombre);
             session.setAttribute("usuarioAvatar", avatar);
             session.setAttribute("mensaje", "¡Perfil actualizado con éxito!");
-        } else {
+
+        } catch (Exception e) {
+            e.printStackTrace();
             session.setAttribute("mensaje", "Error al actualizar el perfil.");
         }
 

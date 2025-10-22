@@ -21,7 +21,7 @@
         </p>
     </c:if>
 
-    <form action="<%=request.getContextPath()%>/PerfilServlet" method="post">
+    <form action="${pageContext.request.contextPath}/PerfilServlet" method="post">
         <label>Nombre:</label>
         <input type="text" name="nombre" value="${usuario.nombre}" required>
 
@@ -36,7 +36,7 @@
 
     <hr style="margin: 2rem 0;">
 
-    <form action="<%=request.getContextPath()%>/EliminarUsuarioServlet" method="post"
+    <form action="${pageContext.request.contextPath}/EliminarUsuarioServlet" method="post"
           onsubmit="return confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.');">
         <button type="submit" class="btn delete-btn">Eliminar mi cuenta</button>
     </form>

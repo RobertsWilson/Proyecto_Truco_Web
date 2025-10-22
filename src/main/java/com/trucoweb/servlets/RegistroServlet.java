@@ -1,6 +1,7 @@
 package com.trucoweb.servlets;
 
 import com.trucoweb.dao.UsuarioDAO;
+import com.trucoweb.model.Usuario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.IOException;
@@ -24,25 +25,29 @@ public class RegistroServlet extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String avatar = request.getParameter("avatar");
 
-        //Hashear la contraseña con BCrypt
+        // La contraseña se encripta antes de guardar ese valor en la BD (12 es el numero de rondas de encriptado)
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
 
-        try {
-            //Usar el DAO para crear el usuario
-            boolean exito = usuarioDAO.crearUsuario(nombre, email, hashed);
+        String avatarPorDefecto = "img/avatar_default.jpg";
 
-            if (exito) {
-                // Redirigir al login si el registro fue exitoso
-                response.sendRedirect(request.getContextPath() + "/pages/login.jsp?registro=exitoso");
-            } else {
-                // Manejar error de registro
-                response.sendRedirect(request.getContextPath() + "/pages/registro.jsp?error=1");
-            }
+        // 2. Crear el objeto Usuario
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setNombre(nombre);
+        nuevoUsuario.setEmail(email);
+        nuevoUsuario.setPassword(hashed);
+        nuevoUsuario.setAvatar(avatarPorDefecto);
+
+        try {
+            //Usar el método insert()
+            usuarioDAO.insert(nuevoUsuario); //
+
+            response.sendRedirect(request.getContextPath() + "/pages/login.jsp?registro=exitoso");
+
         } catch (Exception e) {
             e.printStackTrace();
-            // Manejar error inesperado
-            response.sendRedirect(request.getContextPath() + "/pages/registro.jsp?error=2");
+            response.sendRedirect(request.getContextPath() + "/pages/registro.jsp?error=1");
         }
     }
 }

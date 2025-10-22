@@ -10,7 +10,7 @@
 
 <main class="form-container">
   <h2>Crear cuenta</h2>
-  <form action="<%=request.getContextPath()%>/RegistroServlet" method="post">
+  <form action="${pageContext.request.contextPath}/RegistroServlet" method="post">
     <label>Nombre:</label>
     <input type="text" name="nombre" required>
 
