@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Información sobre el Truco</title>
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet"/>
   </head>
   <body>
@@ -66,7 +66,7 @@
         </div>
       </section>
     </main>
-    <script src="../js/acordeon.js"></script>
+    <script src="${pageContext.request.contextPath}/js/acordeon.js"></script>
 
     <footer>
       <p>&copy; 2025 Truco Argento</p>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro - TrucoWeb</title>
-  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
 
