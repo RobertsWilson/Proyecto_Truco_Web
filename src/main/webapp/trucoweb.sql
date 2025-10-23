@@ -138,9 +138,11 @@ CREATE TABLE `usuarios` (
   `password` varchar(255) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `fecha_registro` datetime DEFAULT CURRENT_TIMESTAMP,
+  `victorias` int NOT NULL DEFAULT '0',
+  `avatar` varchar(255) DEFAULT 'img/avatar_default.jpg',
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +151,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'wilfeder44@gmail.com','$2a$12$EtxgmsQummCzcUAPTqwBSuSJD3X3THx57Ep8djE0MhAFe.A31J5hW','Wilson','2025-10-16 01:52:11'),(2,'Armenio@hotmail.com','$2a$12$hbXYYdESg.cHkyFAWVP4veTzO8LXZbPSAb6VXVSxGm7Ejo1aK9X7G','Gerundio','2025-10-16 16:32:02');
+INSERT INTO `usuarios` VALUES (1,'wilfeder44@gmail.com','$2a$12$EtxgmsQummCzcUAPTqwBSuSJD3X3THx57Ep8djE0MhAFe.A31J5hW','Wilson','2025-10-16 01:52:11',0,'img/avatar_default.jpg'),(2,'Armenio@hotmail.com','$2a$12$hbXYYdESg.cHkyFAWVP4veTzO8LXZbPSAb6VXVSxGm7Ejo1aK9X7G','Gerundio','2025-10-16 16:32:02',0,'img/avatar_default.jpg'),(6,'Prueba01@gmail.com','$2a$12$ilmX3DUL7OOIxHxGmRPmL.eerkLrqxoh2hmxrdNKUHdewMnZ3cI72','Prueba01','2025-10-20 14:32:45',0,'img/avatar_default.jpg'),(8,'Wil@gmail.com','$2a$12$GJFRrwXz7/41Ss9PQQssjujDHuNQ1XZFH3quLkb5.rsUSrNyvP4dW','Wil','2025-10-22 13:17:02',0,'img/avatar_default.jpg'),(9,'Wils@gmail.com','$2a$12$o1ac2Uu0fnOcTf.Uv2o8Ce1IzimDiUu9FS7l2eXsl/jzBD/X3oxXq','Wils','2025-10-23 14:01:31',0,'img/avatar_default.jpg');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -162,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-16 16:34:32
+-- Dump completed on 2025-10-23 14:12:36
