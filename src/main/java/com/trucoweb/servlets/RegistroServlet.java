@@ -11,7 +11,6 @@ public class RegistroServlet extends HttpServlet {
 
     private UsuarioDAO usuarioDAO;
 
-    //Usar init() para instanciar el DAO una sola vez
     @Override
     public void init() throws ServletException {
         super.init();
@@ -25,14 +24,12 @@ public class RegistroServlet extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String avatar = request.getParameter("avatar");
 
-        // La contraseña se encripta antes de guardar ese valor en la BD (12 es el numero de rondas de encriptado)
+        // Encriptar password
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
-
         String avatarPorDefecto = "img/avatar_default.jpg";
 
-        // 2. Crear el objeto Usuario
+        // Crear objeto Usuario
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombre(nombre);
         nuevoUsuario.setEmail(email);
@@ -40,10 +37,26 @@ public class RegistroServlet extends HttpServlet {
         nuevoUsuario.setAvatar(avatarPorDefecto);
 
         try {
-            //Usar el método insert()
-            usuarioDAO.insert(nuevoUsuario); //
+            //Insertar en la BD
+            usuarioDAO.insert(nuevoUsuario);
 
-            response.sendRedirect(request.getContextPath() + "/pages/login.jsp?registro=exitoso");
+            // 2. RECUPERAR EL USUARIO COMPLETO (necesitamos el ID generado por la BD)
+            // Reutilizamos tu método existente buscarPorLogin usando el email
+            Usuario usuarioRegistrado = usuarioDAO.buscarPorLogin(email);
+
+            if (usuarioRegistrado != null) {
+                // Se crea la sesion directamente tras el registro
+                HttpSession session = request.getSession();
+                session.setAttribute("id_usuario", usuarioRegistrado.getId_usuario());
+                session.setAttribute("usuarioNombre", usuarioRegistrado.getNombre());
+                session.setAttribute("usuarioAvatar", usuarioRegistrado.getAvatar());
+
+                //Redirigir al Index
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+            } else {
+                // Si por alguna razón falla la recuperación, enviarlo al login como respaldo
+                response.sendRedirect(request.getContextPath() + "/pages/login.jsp?registro=exitoso");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
